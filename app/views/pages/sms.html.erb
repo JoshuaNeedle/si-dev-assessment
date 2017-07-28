@@ -1,4 +1,12 @@
 <h1>Success! Your message went through!</h1>
-<p>Message Sent: <%= params[:message] %></p>
+<p>Message Sent: <%= params[:mess] %></p>
 <p>Phone Number: <%= params[:phone] %></p>
-<p></p>
+<%= require 'twilio-ruby' %>
+<%= account_sid = "ACd60856c3f58b2b38ed172fbe373405ec" %>
+<%= auth_token = "f992a8bfbb34ea422849edc8da4ca49f" %>
+<%= @client = Twilio::REST::Client.new account_sid, auth_token %>
+<%= message = @client.messages.create(
+    body: params[:mess],
+    to: params[:phone],    # Replace with your phone number
+    from: "+17818054695") %>
+<%= puts message.sid %>
